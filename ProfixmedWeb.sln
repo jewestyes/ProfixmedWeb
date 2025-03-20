@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34511.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProfixmedWeb", "ProfixmedWeb.csproj", "{FC2A6F94-191D-4478-AC3E-483207D6091D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FC2A6F94-191D-4478-AC3E-483207D6091D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC2A6F94-191D-4478-AC3E-483207D6091D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC2A6F94-191D-4478-AC3E-483207D6091D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC2A6F94-191D-4478-AC3E-483207D6091D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0186AC3D-2D91-4365-B24E-B8F9DE07BE01}
+	EndGlobalSection
+EndGlobal
