@@ -42,7 +42,10 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
 
     - name: Deploy application files to server
-      run: rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
+    run: |
+        rsync -avz --rsync-path="mkdir -p /home/ProfixmedWeb/bin/Release/net8.0 && rsync" \
+        -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ \
+        root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
 
     - name: Deploy wwwroot to server (excluding Files)
       run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@103.88.243.6:/home/ProfixmedWeb/wwwroot
