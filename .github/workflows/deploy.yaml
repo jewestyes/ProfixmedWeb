@@ -51,7 +51,7 @@ jobs:
       run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@103.88.243.6:/home/ProfixmedWeb/wwwroot
 
     - name: Restart Kestrel
-      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@103.88.243.6 'sudo systemctl restart kestrel.service'
+      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@103.88.243.6 'sudo systemctl restart kestrel-deploy.service'
 
     - name: Remove SSH key
       run: rm -f ~/.ssh/id_rsa
