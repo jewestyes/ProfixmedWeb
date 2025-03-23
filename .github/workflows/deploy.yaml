@@ -36,13 +36,13 @@ jobs:
       run: dotnet publish --configuration Release --no-restore -o ./publish
 
     - name: Add SSH key
-      run: |
+        run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
 
     - name: Deploy application files to server
-    run: |
+        run: |
         rsync -avz --rsync-path="mkdir -p /home/ProfixmedWeb/bin/Release/net8.0 && rsync" \
         -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ \
         root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
