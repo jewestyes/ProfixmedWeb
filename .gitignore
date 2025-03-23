@@ -367,13 +367,8 @@ publish/
 
 # --- Node/SASS ---
 node_modules/
-scss/
+
 *.scss
-package-lock.json
-package.json
-
-# --- CSS maps (optional) ---
+!wwwroot/scss/**
 wwwroot/css/*.css.map
-
-# --- Compiled CSS cache (optional, если не используешь maps) ---
 wwwroot/css/_main.min.css.map
