@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: Set up Node.js
       uses: actions/setup-node@v3
       with:
@@ -20,7 +20,8 @@ jobs:
 
     - name: Install npm dependencies
       run: npm install
-    
+      working-directory: ./ProfixmedWeb
+
     - name: Set up .NET
       uses: actions/setup-dotnet@v1
       with:
@@ -28,12 +29,15 @@ jobs:
 
     - name: Install dependencies
       run: dotnet restore
+      working-directory: ./ProfixmedWeb
 
     - name: Build
       run: dotnet build --configuration Release --no-restore
+      working-directory: ./ProfixmedWeb
 
     - name: Publish
       run: dotnet publish --configuration Release --no-restore -o ./publish
+      working-directory: ./ProfixmedWeb
 
     - name: Add SSH key
       run: |
@@ -42,10 +46,13 @@ jobs:
         chmod 600 ~/.ssh/id_rsa
 
     - name: Deploy application files to server
-      run: rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
+      run: rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./ProfixmedWeb/publish/ root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
 
     - name: Deploy wwwroot to server (excluding Files)
-      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@103.88.243.6:/home/ProfixmedWeb/wwwroot
+      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./ProfixmedWeb/publish/wwwroot/ root@103.88.243.6:/home/ProfixmedWeb/wwwroot
 
     - name: Restart Kestrel
       run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@103.88.243.6 'sudo systemctl restart kestrel.service'
+
+    - name: Remove SSH key
+      run: rm -f ~/.ssh/id_rsa
