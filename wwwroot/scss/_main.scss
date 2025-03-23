@@ -49,10 +49,11 @@ body {
 
 .header {
     position: relative;
-    background: $gradient-accent;
-    color: #ffffff;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-    backdrop-filter: blur(4px);
+    background: $color-surface;
+    color: $color-text;
+    border-bottom: 1px solid $color-border;
+    box-shadow: none;
+    backdrop-filter: none;
 }
 
 .header__container {
@@ -77,7 +78,7 @@ body {
     align-items: center;
     gap: 0.75rem;
     text-decoration: none;
-    color: #ffffff;
+    color: $color-text;
 }
 
 .logo__image {
@@ -89,7 +90,7 @@ body {
 .logo__text {
     font-weight: 600;
     font-size: 1.25rem;
-    color: #ffffff;
+    color: $color-text;
 }
 
 .header__nav {
@@ -98,7 +99,7 @@ body {
 
     a {
         text-decoration: none;
-        color: #ffffff;
+        color: $color-text;
         font-weight: 500;
         position: relative;
 
@@ -109,7 +110,7 @@ body {
             bottom: -2px;
             width: 100%;
             height: 1px;
-            background-color: #ffffff;
+            background-color: $color-text;
         }
     }
 }
@@ -189,12 +190,11 @@ body {
     cursor: pointer;
     width: 24px;
     height: 24px;
-    margin-left: auto;
 
     span {
         display: block;
         height: 2px;
-        background-color: #ffffff;
+        background-color: $color-text;
         border-radius: 2px;
         transition: all 0.3s ease;
     }
@@ -218,7 +218,6 @@ body {
     }
 
     .event__image {
-        /*width: 100%;*/
         height: 400px;
     }
 
