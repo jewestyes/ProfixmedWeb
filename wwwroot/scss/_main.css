@@ -32,10 +32,11 @@
 
 .header {
   position: relative;
-  background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-  color: #ffffff;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  backdrop-filter: blur(4px);
+  background: #ffffff;
+  color: #1a1a1a;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: none;
+  backdrop-filter: none;
 }
 
 .header__container {
@@ -60,7 +61,7 @@
   align-items: center;
   gap: 0.75rem;
   text-decoration: none;
-  color: #ffffff;
+  color: #1a1a1a;
 }
 
 .logo__image {
@@ -72,7 +73,7 @@
 .logo__text {
   font-weight: 600;
   font-size: 1.25rem;
-  color: #ffffff;
+  color: #1a1a1a;
 }
 
 .header__nav {
@@ -81,7 +82,7 @@
 }
 .header__nav a {
   text-decoration: none;
-  color: #ffffff;
+  color: #1a1a1a;
   font-weight: 500;
   position: relative;
 }
@@ -92,7 +93,7 @@
   bottom: -2px;
   width: 100%;
   height: 1px;
-  background-color: #ffffff;
+  background-color: #1a1a1a;
 }
 
 .main-columns {
@@ -166,12 +167,11 @@
   cursor: pointer;
   width: 24px;
   height: 24px;
-  margin-left: auto;
 }
 .burger span {
   display: block;
   height: 2px;
-  background-color: #ffffff;
+  background-color: #1a1a1a;
   border-radius: 2px;
   transition: all 0.3s ease;
 }
@@ -190,7 +190,6 @@
     display: flex;
   }
   .event__image {
-    /*width: 100%;*/
     height: 400px;
   }
   .header__nav {
