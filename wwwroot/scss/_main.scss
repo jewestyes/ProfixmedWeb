@@ -212,6 +212,67 @@ body {
     }
 }
 
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+
+    &--visible {
+        opacity: 1;
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    &__overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    &__content {
+        position: relative;
+        background: $color-surface;
+        padding: 2rem;
+        border-radius: $radius;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        max-width: 500px;
+        width: 90%;
+        z-index: 1;
+        color: $color-text;
+        line-height: 1.5;
+    }
+
+    &__close {
+        position: absolute;
+        top: 8px;
+        right: 12px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: $color-text;
+        cursor: pointer;
+        padding: 0;
+        line-height: 1;
+    }
+
+    h3 {
+        margin-top: 0;
+        font-size: 1.25rem;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
+
+
 @media (max-width: 768px) {
     .burger {
         display: flex;
@@ -243,6 +304,17 @@ body {
 
         &.open {
             display: flex;
+        }
+    }
+
+    .modal {
+        &__content {
+            max-width: 100vw;
+            max-height: 90vh;
+            width: calc(100% - 2rem);
+            padding: 1.5rem;
+            overflow-y: auto;
+            box-sizing: border-box;
         }
     }
 

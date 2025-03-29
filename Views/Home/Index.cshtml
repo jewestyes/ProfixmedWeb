@@ -1,37 +1,45 @@
 ﻿@{
-    ViewData["Title"] = "Главная";
+	ViewData["Title"] = "Главная";
 }
 
 <div class="main-columns container">
-    <div class="column column--news">
-        <h2 class="section__title">Новости</h2>
-        <div class="card news__card">
-            <h3>Михаил Мурашко направил приветствие участникам научно-практической конференции «Обучающие технологии и наставничество в хирургии» в ДНР</h3>
-            <p>20.03.2025</p>
-            <a href="https://minzdrav.gov.ru/news/2025/03/20/23844-mihail-murashko-napravil-privetstvie-uchastnikam-nauchno-prakticheskoy-konferentsii-obuchayuschie-tehnologii-i-nastavnichestvo-v-hirurgii-v-dnr" target="_blank" class="btn">Читать</a>
-        </div>
+	<div class="column column--news">
+		<h2 class="section__title">Новости</h2>
+		<div class="card news__card">
+			<h3>Михаил Мурашко направил приветствие участникам научно-практической конференции «Обучающие технологии и наставничество в хирургии» в ДНР</h3>
+			<p>20.03.2025</p>
+			<a href="https://minzdrav.gov.ru/news/2025/03/20/23844-mihail-murashko-napravil-privetstvie-uchastnikam-nauchno-prakticheskoy-konferentsii-obuchayuschie-tehnologii-i-nastavnichestvo-v-hirurgii-v-dnr" target="_blank" class="btn">Читать</a>
+		</div>
 
-        <div class="card news__card">
-            <h3>Министр здравоохранения РФ Михаил Мурашко направил приветствие участникам Всероссийской конференции экспертов в области редких заболеваний «Свет добра России: путь к спасению редких жизней»</h3>
-            <p>18.03.2025</p>
-            <a href="https://minzdrav.gov.ru/news/2025/03/18/23737-ministr-zdravoohraneniya-rf-mihail-murashko-napravil-privetstvie-uchastnikam-vserossiyskoy-konferentsii-ekspertov-v-oblasti-redkih-zabolevaniy-svet-dobra-rossii-put-k-spaseniyu-redkih-zhizney" target="_blank" class="btn">Читать</a>
-        </div>
+		<div class="card news__card">
+			<h3>Министр здравоохранения РФ Михаил Мурашко направил приветствие участникам Всероссийской конференции экспертов в области редких заболеваний «Свет добра России: путь к спасению редких жизней»</h3>
+			<p>18.03.2025</p>
+			<a href="https://minzdrav.gov.ru/news/2025/03/18/23737-ministr-zdravoohraneniya-rf-mihail-murashko-napravil-privetstvie-uchastnikam-vserossiyskoy-konferentsii-ekspertov-v-oblasti-redkih-zabolevaniy-svet-dobra-rossii-put-k-spaseniyu-redkih-zhizney" target="_blank" class="btn">Читать</a>
+		</div>
 
-        <div class="card news__card">
-            <h3>Министр здравоохранения РФ Михаил Мурашко направил приветствие участникам 18 Всероссийского съезда Национального Альянса дерматовенерологов и косметологов «Синтез науки и практики»</h3>
-            <p>18.03.2025</p>
-            <a href="https://minzdrav.gov.ru/news/2025/03/18/23741-ministr-zdravoohraneniya-rf-mihail-murashko-napravil-privetstvie-uchastnikam-18-vserossiyskogo-s-ezda-natsionalnogo-alyansa-dermatovenerologov-i-kosmetologov-sintez-nauki-i-praktiki" target="_blank" class="btn">Читать</a>
-        </div>
-    </div>
+		<div class="card news__card">
+			<h3>Министр здравоохранения РФ Михаил Мурашко направил приветствие участникам 18 Всероссийского съезда Национального Альянса дерматовенерологов и косметологов «Синтез науки и практики»</h3>
+			<p>18.03.2025</p>
+			<a href="https://minzdrav.gov.ru/news/2025/03/18/23741-ministr-zdravoohraneniya-rf-mihail-murashko-napravil-privetstvie-uchastnikam-18-vserossiyskogo-s-ezda-natsionalnogo-alyansa-dermatovenerologov-i-kosmetologov-sintez-nauki-i-praktiki" target="_blank" class="btn">Читать</a>
+		</div>
+	</div>
 
-    <div class="column column--event">
-        <h2 class="section__title">Мероприятия</h2>
-        <div class="card event__card">
-            <img src="~/images/event-placeholder.jpg" alt="Мероприятие" class="event__image" />
-            <div class="event__desc">
-                <p>11 апреля 2025г., по адресу: г. Кострома, ул. Юношеская, д.1, гостиничный комплекс "Волга", большой конференц-зал.</p>
-                <a href="#" class="btn">Подробнее</a>
-            </div>
-        </div>
-    </div>
+	<div class="column column--event">
+		<h2 class="section__title">Мероприятия</h2>
+		<div class="card event__card">
+			<img src="~/images/event-placeholder.jpg" alt="Мероприятие" class="event__image" />
+			<div class="event__desc">
+				<p>11 апреля 2025г., по адресу: г. Кострома, ул. Юношеская, д.1, гостиничный комплекс "Волга", большой конференц-зал.</p>
+				<button type="button" class="btn js-open-modal" data-modal-target="eventModal">Подробнее</button>
+			</div>
+		</div>
+	</div>
+
+	@await Component.InvokeAsync("EventModal", new EventModalViewModel
+	{
+		Title = "Информация о мероприятии",
+		Date = "11 апреля 2025 года, 10:00",
+		Location = "г. Кострома, ул. Юношеская, д.1, гостиничный комплекс \"Волга\", большой конференц-зал"
+	})
+
 </div>
