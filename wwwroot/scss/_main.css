@@ -185,6 +185,60 @@
   transform: translateY(-7px) rotate(-45deg);
 }
 
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.modal--visible {
+  opacity: 1;
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+.modal__content {
+  position: relative;
+  background: #ffffff;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  z-index: 1;
+  color: #1a1a1a;
+  line-height: 1.5;
+}
+.modal__close {
+  position: absolute;
+  top: 8px;
+  right: 12px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #1a1a1a;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+.modal h3 {
+  margin-top: 0;
+  font-size: 1.25rem;
+}
+.modal p {
+  margin-bottom: 0;
+}
+
 @media (max-width: 768px) {
   .burger {
     display: flex;
@@ -213,6 +267,14 @@
   }
   .header__nav.open {
     display: flex;
+  }
+  .modal__content {
+    max-width: 100vw;
+    max-height: 90vh;
+    width: calc(100% - 2rem);
+    padding: 1.5rem;
+    overflow-y: auto;
+    box-sizing: border-box;
   }
   .main-columns {
     flex-direction: column;
