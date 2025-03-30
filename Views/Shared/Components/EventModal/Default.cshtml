@@ -3,11 +3,20 @@
 <div class="modal" id="event">
     <div class="modal__overlay js-close-modal"></div>
     <div class="modal__content">
-        <button class="modal__close js-close-modal">&times;</button>
-        <h3>@Model.Title</h3>
-        <p>
-            @Model.Date<br />
-            @Model.Location
-        </p>
+        <button class="modal__close js-close-modal" aria-label="Закрыть окно">&times;</button>
+
+        <h3 class="modal__title">@Model.Title</h3>
+        <div class="modal__meta">
+            <span>@Model.Date</span><br />
+            <span>@Model.Location</span>
+        </div>
+
+        <div class="modal__pdf-container">
+            <iframe src="@Model.FilePath" class="modal__pdf" allowfullscreen></iframe>
+        </div>
+
+        <div class="modal__actions">
+            <a href="@Model.FilePath" target="_blank" class="modal__download">Скачать PDF</a>
+        </div>
     </div>
 </div>
