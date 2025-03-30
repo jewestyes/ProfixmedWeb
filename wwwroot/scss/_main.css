@@ -235,6 +235,43 @@
   margin-top: 0;
   font-size: 1.25rem;
 }
+.modal__pdf-container {
+  margin-top: 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.modal__pdf {
+  width: 100%;
+  height: 60vh;
+  border: none;
+  display: block;
+  border-radius: 10px;
+  background: #f0f0f0;
+}
+.modal__actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+.modal__actions .modal__download {
+  display: inline-block;
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+  color: #fff;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+.modal__actions .modal__download:hover {
+  opacity: 0.85;
+}
+.modal .modal__meta {
+  font-size: 0.875rem;
+  color: rgb(20.8, 20.8, 20.8);
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
 .modal p {
   margin-bottom: 0;
 }
@@ -275,6 +312,12 @@
     padding: 1.5rem;
     overflow-y: auto;
     box-sizing: border-box;
+  }
+  .modal__pdf {
+    height: 50vh;
+  }
+  .modal__actions {
+    text-align: center;
   }
   .main-columns {
     flex-direction: column;
