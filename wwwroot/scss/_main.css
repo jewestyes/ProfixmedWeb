@@ -136,7 +136,7 @@
 }
 
 .event__image {
-  /*width: 100%;*/
+  width: 100%;
   object-fit: cover;
   border-radius: 10px;
   display: block;
