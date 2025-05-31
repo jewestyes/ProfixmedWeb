@@ -13,7 +13,6 @@
 	<ItemGroup>
 		<Folder Include="wwwroot\css\" />
 		<Folder Include="wwwroot\images\" />
-		<Folder Include="wwwroot\files\" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="compilerconfig.json" />
