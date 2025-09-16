@@ -45,13 +45,13 @@ jobs:
       run: |
         rsync -avz --rsync-path="mkdir -p /home/ProfixmedWeb/bin/Release/net8.0 && rsync" \
         -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ \
-        root@103.88.243.6:/home/ProfixmedWeb/bin/Release/net8.0
+        root@37.252.23.177:/home/ProfixmedWeb/bin/Release/net8.0
 
     - name: Deploy wwwroot to server (excluding Files)
-      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@103.88.243.6:/home/ProfixmedWeb/wwwroot
+      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@37.252.23.177:/home/ProfixmedWeb/wwwroot
 
     - name: Restart Kestrel
-      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@103.88.243.6 'sudo systemctl restart kestrel-deploy.service'
+      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@37.252.23.177 'sudo systemctl restart kestrel-deploy.service'
 
     - name: Remove SSH key
       run: rm -f ~/.ssh/id_rsa
