@@ -33,7 +33,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
 
     - name: Publish project
-      run: dotnet publish --configuration Release --no-restore -o ./publish
+      run: dotnet publish ./ProfixmedWeb/ProfixmedWeb.csproj --configuration Release --no-restore -o ./publish
 
     - name: Add SSH key
       run: |
@@ -43,15 +43,15 @@ jobs:
 
     - name: Deploy application files to server
       run: |
-        rsync -avz --rsync-path="mkdir -p /home/ProfixmedWeb/bin/Release/net8.0 && rsync" \
+        rsync -avz --delete --rsync-path="mkdir -p /var/www/profixmed/app && rsync" \
         -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ \
-        root@37.252.23.177:/home/ProfixmedWeb/bin/Release/net8.0
+        root@37.252.23.177:/var/www/profixmed/app
 
     - name: Deploy wwwroot to server (excluding Files)
-      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@37.252.23.177:/home/ProfixmedWeb/wwwroot
+      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@37.252.23.177:/var/www/profixmed/app/wwwroot
 
     - name: Restart Kestrel
-      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@37.252.23.177 'sudo systemctl restart kestrel-deploy.service'
+      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@37.252.23.177 'sudo systemctl restart profixmedweb.service'
 
     - name: Remove SSH key
       run: rm -f ~/.ssh/id_rsa
