@@ -44,7 +44,7 @@ jobs:
           mkdir -p ~/.ssh
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          ssh-keyscan -H ${{ secrets.SSH_HOST }} >> ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
       - name: Deploy, link shared, switch release, restart
@@ -53,14 +53,14 @@ jobs:
           TIMESTAMP=$(date -u +%Y%m%d_%H%M%S)
           RELEASE_DIR=$APP_HOME/releases/$TIMESTAMP
 
-          ssh -i ~/.ssh/id_rsa root@${{ secrets.HOST }} "mkdir -p $RELEASE_DIR"
+          ssh -i ~/.ssh/id_rsa root@${{ secrets.SSH_HOST }} "mkdir -p $RELEASE_DIR"
 
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa" \
             ./publish/ \
-            root@${{ secrets.HOST }}:$RELEASE_DIR/
+            root@${{ secrets.SSH_HOST }}:$RELEASE_DIR/
 
-          ssh -i ~/.ssh/id_rsa root@${{ secrets.HOST }} "\
+          ssh -i ~/.ssh/id_rsa root@${{ secrets.SSH_HOST }} "\
             mkdir -p $APP_HOME/shared $APP_HOME/shared/Files $APP_HOME/releases && \
             ln -sfn $APP_HOME/shared/Files                       $RELEASE_DIR/wwwroot/Files && \
             if [ -f $APP_HOME/shared/appsettings.Production.json ]; then ln -sfn $APP_HOME/shared/appsettings.Production.json $RELEASE_DIR/appsettings.Production.json; fi && \
