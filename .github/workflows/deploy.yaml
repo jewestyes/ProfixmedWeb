@@ -1,57 +1,72 @@
-name: Deploy to Server
+name: CI/CD Deploy
 
 on:
   push:
-    branches:
-      - master
+    branches: [ master ]
+  workflow_dispatch:
+
+env:
+  APP_HOME: /var/www/profixmed
+  SERVICE: profixmedweb.service
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Set up Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: '20'
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
 
-    - name: Install npm dependencies
-      run: npm install
+      - name: Install npm dependencies
+        run: npm install
 
-    - name: Set up .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: '8.0.x'
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Restore .NET dependencies
-      run: dotnet restore
+      - name: Restore & Build
+        run: |
+          dotnet restore
+          dotnet build --configuration Release --no-restore
 
-    - name: Build project
-      run: dotnet build --configuration Release --no-restore
+      - name: Publish project
+        run: |
+          dotnet publish ./ProfixmedWeb.csproj --configuration Release --no-restore -o ./publish
 
-    - name: Publish project
-      run: dotnet publish ./ProfixmedWeb/ProfixmedWeb.csproj --configuration Release --no-restore -o ./publish
+      - name: Install SSH key & known hosts
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.HOST }} >> ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
 
-    - name: Add SSH key
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+      - name: Deploy, link shared, switch release, restart
+        run: |
+          set -e
+          TIMESTAMP=$(date -u +%Y%m%d_%H%M%S)
+          RELEASE_DIR=$APP_HOME/releases/$TIMESTAMP
 
-    - name: Deploy application files to server
-      run: |
-        rsync -avz --delete --rsync-path="mkdir -p /var/www/profixmed/app && rsync" \
-        -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/ \
-        root@37.252.23.177:/var/www/profixmed/app
+          ssh -i ~/.ssh/id_rsa root@${{ secrets.HOST }} "mkdir -p $RELEASE_DIR"
 
-    - name: Deploy wwwroot to server (excluding Files)
-      run: rsync -avz --exclude='Files/' -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" ./publish/wwwroot/ root@37.252.23.177:/var/www/profixmed/app/wwwroot
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/id_rsa" \
+            ./publish/ \
+            root@${{ secrets.HOST }}:$RELEASE_DIR/
 
-    - name: Restart Kestrel
-      run: ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no root@37.252.23.177 'sudo systemctl restart profixmedweb.service'
+          ssh -i ~/.ssh/id_rsa root@${{ secrets.HOST }} "\
+            mkdir -p $APP_HOME/shared $APP_HOME/shared/Files $APP_HOME/releases && \
+            ln -sfn $APP_HOME/shared/Files                       $RELEASE_DIR/wwwroot/Files && \
+            if [ -f $APP_HOME/shared/appsettings.Production.json ]; then ln -sfn $APP_HOME/shared/appsettings.Production.json $RELEASE_DIR/appsettings.Production.json; fi && \
+            ln -sfn $RELEASE_DIR $APP_HOME/current && \
+            systemctl restart $SERVICE \
+          "
 
-    - name: Remove SSH key
-      run: rm -f ~/.ssh/id_rsa
+      - name: Remove SSH key
+        run: rm -f ~/.ssh/id_rsa
