@@ -6,57 +6,57 @@
 	<div class="column column--news">
 		<h2 class="section__title">Новости</h2>
 		<div class="card news__card">
-			<h3>Тюменские ученые установили связь микробиоты кишечника и ожирения</h3>
-			<p>31.03.2025</p>
-			<a href="https://ri.ria.ru/20250331/nauka-2007719586.html" target="_blank" class="btn">Читать</a>
+			<h3>Вьетнам хочет закупать у России вакцину от ВПЧ</h3>
+			<p>16.09.2025</p>
+			<a href="https://ria.ru/20250916/vaktsina-2042198375.html" target="_blank" class="btn">Читать</a>
 		</div>
 
 		<div class="card news__card">
-			<h3>Ивановские ученые получили вещество для повреждения "вредоносных" ДНК</h3>
-			<p>25.03.2025</p>
-			<a href="https://ri.ria.ru/20250325/nauka-2007001368.html" target="_blank" class="btn">Читать</a>
+			<h3>В Саратове создан датчик, выявляющий болезни сердца за три минуты</h3>
+			<p>16.09.2025</p>
+			<a href="https://ria.ru/20250916/nauka-2041507597.html" target="_blank" class="btn">Читать</a>
 		</div>
 
 		<div class="card news__card">
-			<h3>Министр здравоохранения РФ Михаил Мурашко направил приветствие участникам 18 Всероссийского съезда Национального Альянса дерматовенерологов и косметологов «Синтез науки и практики»</h3>
-			<p>18.03.2025</p>
-			<a href="https://minzdrav.gov.ru/news/2025/03/18/23741-ministr-zdravoohraneniya-rf-mihail-murashko-napravil-privetstvie-uchastnikam-18-vserossiyskogo-s-ezda-natsionalnogo-alyansa-dermatovenerologov-i-kosmetologov-sintez-nauki-i-praktiki" target="_blank" class="btn">Читать</a>
+			<h3>Сургутские ученые поняли, как снизить угрозу рака при ЭКО</h3>
+			<p>16.09.2025</p>
+			<a href="https://ri.ria.ru/20250915/nauka-2040438635.html" target="_blank" class="btn">Читать</a>
 		</div>
 	</div>
 
 	<div class="column column--event">
 		<h2 class="section__title">Мероприятия</h2>
-		<div class="card event__card">
-			<img src="~/images/Odintsovo.jpg" asp-append-version="true" alt="Мероприятие" class="event__image" />
-			<div class="event__desc_off">
-				<p>31 мая 2025 г. По адресу: Московская область, Одинцовский р-н, д. Сколково, ул. Новая, д. 100, "Школа управления Сколково."</p>
-				<button type="button" class="btn js-open-modal" data-modal-target="event">Подробнее</button>
-			</div>
+		@* 		<div class="card event__card">
+		<img src="~/images/Odintsovo.jpg" asp-append-version="true" alt="Мероприятие" class="event__image" />
+		<div class="event__desc_off">
+		<p>31 мая 2025 г. По адресу: Московская область, Одинцовский р-н, д. Сколково, ул. Новая, д. 100, "Школа управления Сколково."</p>
+		<button type="button" class="btn js-open-modal" data-modal-target="event">Подробнее</button>
+		</div>
 		</div>
 		<div class="card event__card">
-			<img src="~/files/Himki.png" alt="Мероприятие" class="event__image" />
-			<div class="event__desc_off">
-				<p>
-					28 июня 2025 года по адресу: Московская область, Одинцовский район, д. Сколково, ул. Новая, д. 100, «Школа управления Сколково».
-				</p>
-				<button type="button" class="btn js-open-modal2" data-modal-target="event">Подробнее</button>
-			</div>
+		<img src="~/files/Himki.png" alt="Мероприятие" class="event__image" />
+		<div class="event__desc_off">
+		<p>
+		28 июня 2025 года по адресу: Московская область, Одинцовский район, д. Сколково, ул. Новая, д. 100, «Школа управления Сколково».
+		</p>
+		<button type="button" class="btn js-open-modal2" data-modal-target="event">Подробнее</button>
 		</div>
+		</div> *@
 		<div class="card event__card">
 			<img src="~/files/RJD.png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
 				<p>20 сентября 2025 г. По адресу: г. Калуга, ул. Степана Разина, д. 26, КГУ им. К.Э. Циолковского</p>
-				<button type="button" class="btn js-open-modal2" data-modal-target="event">Подробнее</button>
+				<button type="button" class="btn js-open-modal" data-modal-target="event">Подробнее</button>
 			</div>
 		</div>
 	</div>
 
- 	@await Component.InvokeAsync("EventModal", new EventModalViewModel
+	@await Component.InvokeAsync("EventModal", new EventModalViewModel
 	{
 		Title = "Информация о мероприятии",
-		Date = "31 мая 2025 г. ",
-		Location = "Московская область, Одинцовский р-н, д. Сколково, ул. Новая, д. 100, \"Школа управления Сколково.\"",
-		FilePath = "files/odintsovo_program.pdf"
-	}) 
+		Date = "20 сентября 2025 г. ",
+		Location = "г. Калуга, ул. Степана Разина, д. 26, КГУ им. К.Э. Циолковского",
+		FilePath = "files/RJD.pdf"
+	})
 
 </div>
