@@ -30,7 +30,7 @@
 			<img src="~/files/RJD1.png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
 				<p>17 октября 2025 г. По адресу: 119435, Москва, Малая Пироговская, 1а</p>
-				<button type="button" class="btn js-open-modal" data-modal-target="event">Подробнее</button>
+				<button type="button" class="btn js-open-modal" data-modal-target="first_event">Подробнее</button>
 			</div>
 		</div>
 		<div class="card event__card">
@@ -39,17 +39,28 @@
 				<p>
 					1 ноября 2025 г., По адресу: Московская область, г. Королёв, ул. Циолковского, д. 24, ГБУЗ МО «Королёвская больница».
 				</p>
-				<button type="button" class="btn js-open-modal" data-modal-target="event_off">Подробнее</button>
+				<button type="button" class="btn js-open-modal" data-modal-target="second_event">Подробнее</button>
 			</div>
 		</div>
 	</div>
 
 	@await Component.InvokeAsync("EventModal", new EventModalViewModel
 	{
+		Id = "first_event",
 		Title = "Информация о мероприятии",
 		Date = "17 октября 2025 г. ",
 		Location = "119435, Москва, Малая Пироговская, 1а",
 		FilePath = "files/RJD1.pdf"
 	})
+
+	@await Component.InvokeAsync("EventModal", new EventModalViewModel
+	{
+		Id = "second_event",
+		Title = "Информация о мероприятии",
+		Date = "1 ноября 2025 г.",
+		Location = "Московская область, г. Королёв, ул. Циолковского, д. 24, ГБУЗ МО «Королёвская больница».",
+		FilePath = "files/Приглашение Королёв.pdf"
+	})
+
 
 </div>
