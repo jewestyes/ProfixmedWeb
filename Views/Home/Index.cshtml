@@ -27,17 +27,17 @@
 	<div class="column column--event">
 		<h2 class="section__title">Мероприятия</h2>
 		<div class="card event__card">
-			<img src="~/files/RJD1.png" alt="Мероприятие" class="event__image" />
+			<img src="~/files/Приглашение Одинцово 12-08-25-1.png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
-				<p>17 октября 2025 г. По адресу: 119435, Москва, Малая Пироговская, 1а</p>
+				<p>Московская область, г. Одинцово, ул. Маршала Неделина, д. 8, «Park Inn by Radisson Odincovo Moscow».</p>
 				<button type="button" class="btn js-open-modal" data-modal-target="first_event">Подробнее</button>
 			</div>
 		</div>
 		<div class="card event__card">
-			<img src="~/files/Приглашение Королёв_page-0001.jpg" alt="Мероприятие" class="event__image" />
+			<img src="~/files/Химки пригласительный NEW2-1.png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
 				<p>
-					1 ноября 2025 г., По адресу: Московская область, г. Королёв, ул. Циолковского, д. 24, ГБУЗ МО «Королёвская больница».
+					г. Москва, Ленинградское шоссе, д. 39, стр. 1, Отель: «DoubleThee by Hilton Hotel Moscow – Marina».
 				</p>
 				<button type="button" class="btn js-open-modal" data-modal-target="second_event">Подробнее</button>
 			</div>
@@ -48,18 +48,18 @@
 	{
 		Id = "first_event",
 		Title = "Информация о мероприятии",
-		Date = "17 октября 2025 г. ",
-		Location = "119435, Москва, Малая Пироговская, 1а",
-		FilePath = "files/финал Проект программы ФМБА 2.pdf"
+	Date = "22 ноября 2025 г.",
+	Location = "Московская область, г. Одинцово, ул. Маршала Неделина, д. 8, «Park Inn by Radisson Odincovo Moscow».",
+	FilePath = "files/Приглашение Одинцово 12-08-25.pdf"
 	})
 
 	@await Component.InvokeAsync("EventModal", new EventModalViewModel
 	{
 		Id = "second_event",
 		Title = "Информация о мероприятии",
-		Date = "1 ноября 2025 г.",
-		Location = "Московская область, г. Королёв, ул. Циолковского, д. 24, ГБУЗ МО «Королёвская больница».",
-		FilePath = "files/Приглашение Королёв.pdf"
+	Date = "6 декабря 2025 г.",
+	Location = "г. Москва, Ленинградское шоссе, д. 39, стр. 1, Отель: «DoubleThee by Hilton Hotel Moscow – Marina».",
+		FilePath = "files/Химки пригласительный NEW2.pdf"
 	})
 
 
