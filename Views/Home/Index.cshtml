@@ -27,13 +27,13 @@
 	<div class="column column--event">
 		<h2 class="section__title">Мероприятия</h2>
 		<div class="card event__card">
-			<img src="~/files/Приглашение Одинцово 12-08-25-1.png" alt="Мероприятие" class="event__image" />
+			<img src="~/files/Письмо приглашение 23 мая 2026 г..png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
 				<p>Московская область, г. Одинцово, ул. Маршала Неделина, д. 8, «Park Inn by Radisson Odincovo Moscow».</p>
 				<button type="button" class="btn js-open-modal" data-modal-target="first_event">Подробнее</button>
 			</div>
 		</div>
-		<div class="card event__card">
+@* 		<div class="card event__card">
 			<img src="~/files/Химки пригласительный NEW2-1.png" alt="Мероприятие" class="event__image" />
 			<div class="event__desc_off">
 				<p>
@@ -41,18 +41,18 @@
 				</p>
 				<button type="button" class="btn js-open-modal" data-modal-target="second_event">Подробнее</button>
 			</div>
-		</div>
+		</div> *@
 	</div>
 
 	@await Component.InvokeAsync("EventModal", new EventModalViewModel
 	{
 		Id = "first_event",
 		Title = "Информация о мероприятии",
-	Date = "22 ноября 2025 г.",
+	Date = "23 мая 2026 г.",
 	Location = "Московская область, г. Одинцово, ул. Маршала Неделина, д. 8, «Park Inn by Radisson Odincovo Moscow».",
-	FilePath = "files/Приглашение Одинцово 12-08-25.pdf"
+		FilePath = "files/Письмо приглашение 23 мая 2026 г..pdf"
 	})
-
+@* 
 	@await Component.InvokeAsync("EventModal", new EventModalViewModel
 	{
 		Id = "second_event",
@@ -60,7 +60,7 @@
 	Date = "6 декабря 2025 г.",
 	Location = "г. Москва, Ленинградское шоссе, д. 39, стр. 1, Отель: «DoubleThee by Hilton Hotel Moscow – Marina».",
 		FilePath = "files/PDF_himki_program.pdf"
-	})
+	}) *@
 
 
 </div>
