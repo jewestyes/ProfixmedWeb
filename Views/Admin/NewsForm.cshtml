@@ -1,0 +1,41 @@
+@model AdminNewsForm
+@{
+	var isNew = Model.Id is null;
+	ViewData["Title"] = isNew ? "Новая новость" : "Изменить новость";
+}
+
+<a asp-action="Index" class="adm-back">← Назад</a>
+
+<form asp-action="SaveNews" method="post" class="adm-card adm-form">
+	<h1>@ViewData["Title"]</h1>
+	<div asp-validation-summary="ModelOnly" class="adm-error"></div>
+	<input type="hidden" asp-for="Id" />
+
+	<label class="adm-field">
+		<span>Заголовок</span>
+		<input asp-for="Title" required />
+		<span asp-validation-for="Title" class="adm-error"></span>
+	</label>
+
+	<label class="adm-field">
+		<span>Дата</span>
+		<input type="date" name="Date" id="Date" value="@Model.Date?.ToString("yyyy-MM-dd")" required />
+		<span asp-validation-for="Date" class="adm-error"></span>
+	</label>
+
+	<label class="adm-field">
+		<span>Ссылка на источник</span>
+		<input asp-for="Url" type="url" required placeholder="https://..." />
+		<span asp-validation-for="Url" class="adm-error"></span>
+	</label>
+
+	<label class="adm-check">
+		<input type="checkbox" name="IsVisible" value="true" checked="@Model.IsVisible" /> Показывать на сайте
+	</label>
+	<input type="hidden" name="IsVisible" value="false" />
+
+	<div class="adm-form__actions">
+		<button type="submit" class="adm-btn adm-btn--primary">Сохранить</button>
+		<a asp-action="Index" class="adm-btn">Отмена</a>
+	</div>
+</form>
