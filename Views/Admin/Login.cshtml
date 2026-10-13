@@ -1,0 +1,24 @@
+@model AdminLoginForm
+@{
+	ViewData["Title"] = "Вход";
+}
+
+<form asp-action="Login" method="post" class="adm-card adm-login">
+	<h1>Вход</h1>
+	<div asp-validation-summary="ModelOnly" class="adm-error"></div>
+	<input type="hidden" asp-for="ReturnUrl" />
+
+	<label class="adm-field">
+		<span>Логин</span>
+		<input asp-for="Username" autocomplete="username" autofocus />
+		<span asp-validation-for="Username" class="adm-error"></span>
+	</label>
+
+	<label class="adm-field">
+		<span>Пароль</span>
+		<input asp-for="Password" autocomplete="current-password" />
+		<span asp-validation-for="Password" class="adm-error"></span>
+	</label>
+
+	<button type="submit" class="adm-btn adm-btn--primary">Войти</button>
+</form>

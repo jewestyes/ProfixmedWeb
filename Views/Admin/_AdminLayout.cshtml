@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta name="robots" content="noindex, nofollow" />
+	<title>@ViewData["Title"] — управление сайтом</title>
+	<link rel="stylesheet" href="~/css/admin.css" asp-append-version="true" />
+</head>
+<body>
+	<header class="adm-header">
+		<div class="adm-container adm-header__inner">
+			<a class="adm-header__brand" asp-controller="Admin" asp-action="Index">Профиксмед · управление</a>
+			<nav class="adm-header__nav">
+				<a href="/" target="_blank" rel="noopener">Открыть сайт ↗</a>
+				@if (User.Identity?.IsAuthenticated == true)
+				{
+					<form asp-controller="Admin" asp-action="Logout" method="post">
+						<button type="submit" class="adm-link">Выйти</button>
+					</form>
+				}
+			</nav>
+		</div>
+	</header>
+
+	<main class="adm-container adm-main">
+		@if (TempData["Message"] is string message)
+		{
+			<div class="adm-flash adm-flash--ok">@message</div>
+		}
+		@if (TempData["Warning"] is string warning)
+		{
+			<div class="adm-flash adm-flash--warn">@warning</div>
+		}
+		@RenderBody()
+	</main>
+
+	<script>
+		// Ask before destructive actions: <form data-confirm="...">
+		document.querySelectorAll("form[data-confirm]").forEach(form => {
+			form.addEventListener("submit", e => {
+				if (!confirm(form.dataset.confirm)) e.preventDefault();
+			});
+		});
+	</script>
+</body>
+</html>

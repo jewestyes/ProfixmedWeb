@@ -1,66 +1,58 @@
-﻿@{
+@model SiteContent
+@{
 	ViewData["Title"] = "Главная";
+
+	// Events and news are edited in the admin panel (AdminController); the first event keeps
+	// its old modal id so existing links like /#first_event still open it.
+	var events = Model.Events.Where(e => e.IsVisible).ToList();
+	var news = Model.News.Where(n => n.IsVisible).ToList();
+	string ModalId(int index, SiteEvent e) => index == 0 ? "first_event" : $"event_{e.Id:N}";
 }
 
 <div class="main-columns container">
 	<div class="column column--news">
 		<h2 class="section__title">Новости</h2>
-		<div class="card news__card">
-			<h3>Вьетнам хочет закупать у России вакцину от ВПЧ</h3>
-			<p>16.09.2025</p>
-			<a href="https://ria.ru/20250916/vaktsina-2042198375.html" target="_blank" class="btn">Читать</a>
-		</div>
-
-		<div class="card news__card">
-			<h3>В Саратове создан датчик, выявляющий болезни сердца за три минуты</h3>
-			<p>16.09.2025</p>
-			<a href="https://ria.ru/20250916/nauka-2041507597.html" target="_blank" class="btn">Читать</a>
-		</div>
-
-		<div class="card news__card">
-			<h3>Сургутские ученые поняли, как снизить угрозу рака при ЭКО</h3>
-			<p>16.09.2025</p>
-			<a href="https://ri.ria.ru/20250915/nauka-2040438635.html" target="_blank" class="btn">Читать</a>
-		</div>
+		@foreach (var item in news)
+		{
+			<div class="card news__card">
+				<h3>@item.Title</h3>
+				<p>@RuDate.Short(item.Date)</p>
+				<a href="@item.Url" target="_blank" rel="noopener" class="btn">Читать</a>
+			</div>
+		}
 	</div>
 
 	<div class="column column--event">
 		<h2 class="section__title">Мероприятия</h2>
-		<div class="card event__card">
-			<img src="~/files/Пригласительный 17-10-26 отель Милан.png" alt="Мероприятие" class="event__image" />
-			<div class="event__desc_off">
-				<p>г. Москва, ул. Шипиловская, д. 28А, Отель «Милан».</p>
-				<button type="button" class="btn js-open-modal" data-modal-target="first_event">Подробнее</button>
+		@for (var i = 0; i < events.Count; i++)
+		{
+			var item = events[i];
+			<div class="card event__card">
+				<img src="@(item.ImageUrl ?? "/images/event-placeholder.jpg")" alt="Мероприятие" class="event__image" />
+				<div class="event__desc_off">
+					<p>@item.Location</p>
+					<button type="button" class="btn js-open-modal" data-modal-target="@ModalId(i, item)">Подробнее</button>
+				</div>
 			</div>
-		</div>
-@* 		<div class="card event__card">
-			<img src="~/files/Химки пригласительный NEW2-1.png" alt="Мероприятие" class="event__image" />
-			<div class="event__desc_off">
-				<p>
-					г. Москва, Ленинградское шоссе, д. 39, стр. 1, Отель: «DoubleThee by Hilton Hotel Moscow – Marina».
-				</p>
-				<button type="button" class="btn js-open-modal" data-modal-target="second_event">Подробнее</button>
+		}
+		@if (events.Count == 0)
+		{
+			<div class="card event__card">
+				<p>Скоро здесь появятся новые мероприятия.</p>
 			</div>
-		</div> *@
+		}
 	</div>
 
-	@await Component.InvokeAsync("EventModal", new EventModalViewModel
+	@for (var i = 0; i < events.Count; i++)
 	{
-		Id = "first_event",
-		Title = "Информация о мероприятии",
-	Date = "17 октября 2026 г.",
-	Location = "г. Москва, ул. Шипиловская, д. 28А, Отель «Милан».",
-		FilePath = "files/Пригласительный 17-10-26 отель Милан.pdf"
-	})
-@* 
-	@await Component.InvokeAsync("EventModal", new EventModalViewModel
-	{
-		Id = "second_event",
-		Title = "Информация о мероприятии",
-	Date = "6 декабря 2025 г.",
-	Location = "г. Москва, Ленинградское шоссе, д. 39, стр. 1, Отель: «DoubleThee by Hilton Hotel Moscow – Marina».",
-		FilePath = "files/PDF_himki_program.pdf"
-	}) *@
-
-
+		var item = events[i];
+		@await Component.InvokeAsync("EventModal", new EventModalViewModel
+		{
+			Id = ModalId(i, item),
+			Title = "Информация о мероприятии",
+			Date = RuDate.Long(item.Date),
+			Location = item.Location,
+			FilePath = item.PdfUrl
+		})
+	}
 </div>

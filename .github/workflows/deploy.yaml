@@ -61,8 +61,10 @@ jobs:
             root@${{ secrets.SSH_HOST }}:$RELEASE_DIR/
 
           ssh -i ~/.ssh/id_rsa root@${{ secrets.SSH_HOST }} "\
-            mkdir -p $APP_HOME/shared $APP_HOME/shared/Files $APP_HOME/releases && \
+            mkdir -p $APP_HOME/shared $APP_HOME/shared/Files $APP_HOME/shared/content $APP_HOME/releases && \
             ln -sfn $APP_HOME/shared/Files                       $RELEASE_DIR/wwwroot/Files && \
+            rm -rf $RELEASE_DIR/App_Data && \
+            ln -sfn $APP_HOME/shared/content                     $RELEASE_DIR/App_Data && \
             if [ -f $APP_HOME/shared/appsettings.Production.json ]; then ln -sfn $APP_HOME/shared/appsettings.Production.json $RELEASE_DIR/appsettings.Production.json; fi && \
             ln -sfn $RELEASE_DIR $APP_HOME/current && \
             systemctl restart $SERVICE \

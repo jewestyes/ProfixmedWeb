@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using ProfixmedWeb.Models;
+using ProfixmedWeb.Services;
 using System.Diagnostics;
 
 namespace ProfixmedWeb.Controllers;
@@ -7,15 +8,17 @@ namespace ProfixmedWeb.Controllers;
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly ContentStore _store;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, ContentStore store)
     {
         _logger = logger;
+        _store = store;
     }
 
     public IActionResult Index()
     {
-        return View();
+        return View(_store.Current);
     }
 
 

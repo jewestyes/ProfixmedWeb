@@ -6,6 +6,9 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<Content Remove="compilerconfig.json" />
+		<!-- Runtime data of the admin panel; on the server it is a symlink into the shared folder. -->
+		<Content Remove="App_Data\**" />
+		<None Remove="App_Data\**" />
 	</ItemGroup>
 	<ItemGroup>
 		<_ContentIncludedByDefault Remove="compilerconfig.json" />
@@ -16,6 +19,9 @@
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="compilerconfig.json" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="PDFtoImage" Version="5.4.0" />
 	</ItemGroup>
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
 		<Exec Command="npm run build-css" />

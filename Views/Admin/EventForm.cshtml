@@ -1,0 +1,61 @@
+@model AdminEventForm
+@{
+	var isNew = Model.Id is null;
+	ViewData["Title"] = isNew ? "Новое мероприятие" : "Изменить мероприятие";
+}
+
+<a asp-action="Index" class="adm-back">← Назад</a>
+
+<form asp-action="SaveEvent" method="post" enctype="multipart/form-data" class="adm-card adm-form">
+	<h1>@ViewData["Title"]</h1>
+	<div asp-validation-summary="ModelOnly" class="adm-error"></div>
+	<input type="hidden" asp-for="Id" />
+
+	<label class="adm-field">
+		<span>Дата</span>
+		<input type="date" name="Date" id="Date" value="@Model.Date?.ToString("yyyy-MM-dd")" required />
+		<span asp-validation-for="Date" class="adm-error"></span>
+	</label>
+
+	<label class="adm-field">
+		<span>Адрес / место</span>
+		<textarea asp-for="Location" rows="2" required placeholder="г. Москва, ул. ..., Отель «...»"></textarea>
+		<span asp-validation-for="Location" class="adm-error"></span>
+	</label>
+
+	<label class="adm-field">
+		<span>PDF приглашения @(isNew ? "" : "(выберите, чтобы заменить)")</span>
+		@if (Model.CurrentPdfUrl is not null)
+		{
+			<a href="@Model.CurrentPdfUrl" target="_blank" rel="noopener">Текущий PDF</a>
+		}
+		<input type="file" name="Pdf" accept="application/pdf,.pdf" required="@isNew" />
+		<span asp-validation-for="Pdf" class="adm-error"></span>
+	</label>
+
+	<div class="adm-field">
+		<span>Картинка для карточки</span>
+		@if (Model.CurrentImageUrl is not null)
+		{
+			<img src="@Model.CurrentImageUrl" alt="" class="adm-preview" />
+			<small class="adm-muted">@(Model.CurrentImageIsAuto ? "Сделана автоматически из первой страницы PDF." : "Загружена вручную.")</small>
+		}
+		<small class="adm-muted">Можно не загружать — картинка будет сделана из первой страницы PDF.</small>
+		<input type="file" name="Image" accept="image/png,image/jpeg,image/webp" />
+		<span asp-validation-for="Image" class="adm-error"></span>
+		@if (Model.CurrentImageUrl is not null && !Model.CurrentImageIsAuto)
+		{
+			<label class="adm-check"><input type="checkbox" name="ResetImage" value="true" /> Заменить на картинку из PDF</label>
+		}
+	</div>
+
+	<label class="adm-check">
+		<input type="checkbox" name="IsVisible" value="true" checked="@Model.IsVisible" /> Показывать на сайте
+	</label>
+	<input type="hidden" name="IsVisible" value="false" />
+
+	<div class="adm-form__actions">
+		<button type="submit" class="adm-btn adm-btn--primary">Сохранить</button>
+		<a asp-action="Index" class="adm-btn">Отмена</a>
+	</div>
+</form>

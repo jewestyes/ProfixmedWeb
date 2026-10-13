@@ -1,0 +1,94 @@
+@model SiteContent
+@{
+	ViewData["Title"] = "Содержимое";
+}
+
+<section class="adm-section">
+	<div class="adm-section__head">
+		<h1>Мероприятия</h1>
+		<a asp-action="CreateEvent" class="adm-btn adm-btn--primary">+ Добавить мероприятие</a>
+	</div>
+	<p class="adm-hint">На сайте показываются видимые мероприятия в этом порядке.</p>
+
+	@if (Model.Events.Count == 0)
+	{
+		<p class="adm-empty">Мероприятий пока нет.</p>
+	}
+	@for (var i = 0; i < Model.Events.Count; i++)
+	{
+		var item = Model.Events[i];
+		<article class="adm-item @(item.IsVisible ? "" : "adm-item--hidden")">
+			<img class="adm-item__thumb" src="@(item.ImageUrl ?? "/images/event-placeholder.jpg")" alt="" />
+			<div class="adm-item__body">
+				<div class="adm-item__title">
+					@RuDate.Long(item.Date)
+					@if (!item.IsVisible) { <span class="adm-badge">скрыто</span> }
+				</div>
+				<div>@item.Location</div>
+				@if (item.PdfUrl is not null)
+				{
+					<a href="@item.PdfUrl" target="_blank" rel="noopener">Открыть PDF</a>
+				}
+			</div>
+			<div class="adm-item__actions">
+				<form asp-action="MoveEvent" asp-route-id="@item.Id" method="post">
+					<input type="hidden" name="delta" value="-1" />
+					<button type="submit" class="adm-btn adm-btn--icon" title="Выше" disabled="@(i == 0)">↑</button>
+				</form>
+				<form asp-action="MoveEvent" asp-route-id="@item.Id" method="post">
+					<input type="hidden" name="delta" value="1" />
+					<button type="submit" class="adm-btn adm-btn--icon" title="Ниже" disabled="@(i == Model.Events.Count - 1)">↓</button>
+				</form>
+				<form asp-action="ToggleEvent" asp-route-id="@item.Id" method="post">
+					<button type="submit" class="adm-btn">@(item.IsVisible ? "Скрыть" : "Показать")</button>
+				</form>
+				<a asp-action="EditEvent" asp-route-id="@item.Id" class="adm-btn">Изменить</a>
+				<form asp-action="DeleteEvent" asp-route-id="@item.Id" method="post" data-confirm="Удалить мероприятие вместе с файлами? Если нужно просто убрать с сайта — нажмите «Скрыть».">
+					<button type="submit" class="adm-btn adm-btn--danger">Удалить</button>
+				</form>
+			</div>
+		</article>
+	}
+</section>
+
+<section class="adm-section">
+	<div class="adm-section__head">
+		<h1>Новости</h1>
+		<a asp-action="CreateNews" class="adm-btn adm-btn--primary">+ Добавить новость</a>
+	</div>
+
+	@if (Model.News.Count == 0)
+	{
+		<p class="adm-empty">Новостей пока нет.</p>
+	}
+	@for (var i = 0; i < Model.News.Count; i++)
+	{
+		var item = Model.News[i];
+		<article class="adm-item @(item.IsVisible ? "" : "adm-item--hidden")">
+			<div class="adm-item__body">
+				<div class="adm-item__title">
+					@item.Title
+					@if (!item.IsVisible) { <span class="adm-badge">скрыто</span> }
+				</div>
+				<div class="adm-muted">@RuDate.Short(item.Date) · <a href="@item.Url" target="_blank" rel="noopener">@item.Url</a></div>
+			</div>
+			<div class="adm-item__actions">
+				<form asp-action="MoveNews" asp-route-id="@item.Id" method="post">
+					<input type="hidden" name="delta" value="-1" />
+					<button type="submit" class="adm-btn adm-btn--icon" title="Выше" disabled="@(i == 0)">↑</button>
+				</form>
+				<form asp-action="MoveNews" asp-route-id="@item.Id" method="post">
+					<input type="hidden" name="delta" value="1" />
+					<button type="submit" class="adm-btn adm-btn--icon" title="Ниже" disabled="@(i == Model.News.Count - 1)">↓</button>
+				</form>
+				<form asp-action="ToggleNews" asp-route-id="@item.Id" method="post">
+					<button type="submit" class="adm-btn">@(item.IsVisible ? "Скрыть" : "Показать")</button>
+				</form>
+				<a asp-action="EditNews" asp-route-id="@item.Id" class="adm-btn">Изменить</a>
+				<form asp-action="DeleteNews" asp-route-id="@item.Id" method="post" data-confirm="Удалить новость?">
+					<button type="submit" class="adm-btn adm-btn--danger">Удалить</button>
+				</form>
+			</div>
+		</article>
+	}
+</section>

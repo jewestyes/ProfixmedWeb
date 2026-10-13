@@ -365,6 +365,9 @@ FodyWeavers.xsd
 # --- Local build artifacts ---
 publish/
 
+# --- Admin panel runtime data (content.json, uploads, keys) ---
+App_Data/
+
 # --- Node/SASS ---
 node_modules/
 
